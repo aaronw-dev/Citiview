@@ -98,7 +98,6 @@
 /* mobile styles */
 @media only screen and (max-width: 767px) { 
   iframe{
-    padding-bottom: 50px;
     width: auto;
     height: auto;
   }
@@ -246,6 +245,7 @@
 }
 
 .about_citiview p{
+  align-items: center;
     width: 50%;
     /**Typography**/
     color: #F2F2F2;
