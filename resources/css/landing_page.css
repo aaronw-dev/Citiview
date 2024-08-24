@@ -201,22 +201,50 @@
 
 /**Features animations**/
 
-.hidden{
+.hidden_1{
     opacity: 0;
-    filter: blur(10px);
+    filter: blur(5px);
+    transform: translateX(-100%);
     transition: all 1s ease;
 }
-.features_container:nth-child(1){
-    transition-delay: 10000000000000ms;
+
+.hidden_2{
+    opacity: 0;
+    filter: blur(5px);
+    transform: translateX(100%);
+    transition: all 1s ease;
 }
-.show{
+
+.show_1{
     opacity: 1;
-    filter: blur(0px);
+    filter: blur(0px);    
     transform: translateX(0%);
 }
 
+.show_2{
+    opacity: 1;
+    filter: blur(0px);    
+    transform: translateX(0%);
+}
+
+
 @media(prefers-reduced-motion){
-    .hidden{
+    .hidden_1{
         transition: none;    
     }
+    .hidden_2{
+        transition: none;    
+    }
+}
+
+/**how time works**/
+.how-it-works h1{
+     /**Typography**/
+    color: #00FFF2;
+    text-align: center;
+    font-size: 31.25px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 47.25px; 
+    text-transform: uppercase;
 }
