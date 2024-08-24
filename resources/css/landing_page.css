@@ -53,19 +53,7 @@
   .menu-container a:hover {
     color: #00FFF2;
   }
-  
-  .menu-container input {
-    display: block;
-    width: 35px;
-    height: 25px;
-    margin: 0;
-    position: absolute;
-    cursor: pointer;
-    opacity: 0; /* hide this */
-    z-index: 2; /* and place it over the hamburger */
-    -webkit-touch-callout: none;
-  }
-  
+    
   .menu ul {
     list-style: none;
   }
@@ -178,16 +166,17 @@
 /**Features**/
 
 .features_container {
+    place-items: center;
+    align-items: center;
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+    width: 100%;
+    height: 100%;
     padding-top: 50px;
     padding-bottom: 50px;
-    padding-left: 90px;
-    padding-right: 90px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    align-items: center;
-    align-content: stretch;
+    overflow-x: hidden;
   }
  
   .features_container h2{
@@ -207,13 +196,19 @@
     font-weight: 400;
     line-height: 24px; 
   }
-
+  .features_container p{
+    color: #FFF;
+    text-align: start;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px; 
+  }
 .features_container section{
     border-radius: 30px;
     background: rgba(0, 255, 242, 0.75);
     width: 50%;
     padding: 21px;
-    align-items: flex-start;
     gap: 12px;
     flex-shrink: 0;
 }
@@ -223,8 +218,9 @@
 .hidden_1{
     opacity: 0;
     filter: blur(5px);
-    transform: translateX(-100%);
+    transform: translateX(-50%);
     transition: all 1s ease;
+    overflow-x: hidden;
 }
 
 .hidden_2{
@@ -232,6 +228,7 @@
     filter: blur(5px);
     transform: translateX(50%);
     transition: all 1s ease;
+    overflow-x: hidden;
 }
 
 .show_1{
