@@ -11,40 +11,47 @@
     <script defer src="/resources/js/landing_page.js"></script>
 </head>
 <body>
-    <nav class="menu-container">
+  <nav class="menu-container">
+    <!-- burger menu -->
+    <input type="checkbox" aria-label="Toggle menu" />
+    <span>
+      <img src="/resources/img/logo/logo-64.png" alt="My Awesome Website"/>
+     </span>
+  
+    <!-- logo -->
+    <a href="#" class="menu-logo">
+      <img src="/resources/img/logo/logo-1000.png" alt="My Awesome Website"/>
+    </a>
+  
+    <!-- menu items -->
+    <div class="menu">
+      <ul>
+        <li>
+          <a href="">
+            Citiview
+          </a>
+        </li>
+      </ul>
+      <ul>
+        <li>
+          <a href="">
+            Insipration
+          </a>
+        </li>
+        <li>
+          <a href="">
+            How it works
+          </a>
+        </li>
+        <li>
+          <a href="">
+            Try it out
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
 
-        <a href="#" class="menu-logo">
-            <img src="/resources/img/logo/logo-1000.png" alt="logo">
-        </a>
-      
-        <div class="menu">
-          <ul>
-            <li>
-              <a href="#home">
-                Citiview
-              </a>
-            </li>
-          </ul>
-
-          <ul>
-            <li>
-              <a href="#signup">
-                Insipration
-              </a>
-            </li>
-            <li>
-              <a href="#login">
-                How it works
-              </a>
-            </li>
-            <li>
-                <a href="#login">
-                  Try it out
-                </a>
-              </li>
-          </ul>
-        </div>
-      </nav>
     <div class="hero">
       <video autoplay muted loop plays-inline class="hero-video">
         <source src="/resources/img/hero_video.mp4" type="video/mp4">
@@ -109,12 +116,16 @@
 
  <div class="about_citiview"> 
      <h1>
-         How it works
+         See Citiview in action
      </h1>
-     <p>
-         Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas placeat obcaecati, soluta quae facilis porro corrupti sunt quod excepturi impedit laborum hic velit deserunt ratione natus ea? Laudantium, quod est.
-     </p>
+     <p><iframe width="560" height="315" src="https://www.youtube.com/embed/qyomWr_C_jA" title="" frameBorder="0"   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"  allowFullScreen><br>Powered by <a href="https://youtubeembedcode.com">youtube embed code generator</a> and <a href="https://evfactory.se/produkt/garo-entity-compact/">Garo Entity</a></iframe></p>
  </div>
+
 </body>
 
+<footer>
+  <p>
+      © 2024 Citiview. All rights reserved. Built by Albert Mugasha and Aaron Wong
+  </p>
+</footer>
 </html>
