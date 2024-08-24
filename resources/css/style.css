@@ -1,7 +1,8 @@
 :root {
     --background: #060606;
-    --ui-accent: #D9D9D9;
-    --ui-content: #7A7A7A;
+    --ui-accent: #1E1E1E;
+    --ui-content: #E6E6E6;
+    --rainbow-gradient: linear-gradient(90deg, #003 0%, #0000AF 20%, #222DFF 40%, #4FFA4F 60%, #FFFF43 80%, #FF1B1B 100%);
 }
 
 body {
@@ -15,9 +16,12 @@ body {
 }
 
 button,
-input {
+input,
+textarea {
     border: none;
     background-color: var(--ui-accent);
+    color: var(--ui-content);
+    resize: none;
 }
 
 #map {
@@ -98,11 +102,9 @@ input {
 
     --mask: linear-gradient(to right,
             rgba(0, 0, 0, 1) 0, rgba(0, 0, 0, 1) 85%, rgba(0, 0, 0, 0) 100%, rgba(0, 0, 0, 0) 0) 100% 50% / 100% 100% repeat-x;
-
-    border: 1px #d8d8d8 dashed;
     -webkit-mask: var(--mask);
     mask: var(--mask);
-
+    color: var(--ui-content);
 }
 
 #search-icon {
@@ -125,4 +127,90 @@ input {
 #add-button img {
     width: 100%;
     height: 100%;
+}
+
+.add-dialog {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--ui-accent);
+    border-radius: 20px;
+    padding: 20px;
+    gap: 10px;
+    transform: translateY(-100%);
+}
+
+.add-top {
+    display: flex;
+    height: 20px;
+}
+
+#add-title {
+    font-size: 20px;
+}
+
+.add-buttons>img {
+    height: 100%;
+    cursor: pointer;
+}
+
+.add-buttons {
+    margin-left: auto;
+    display: flex;
+    gap: 15px;
+}
+
+#add-description {
+    font-size: 16px;
+    height: 6em;
+}
+
+/*********** Baseline, reset styles ***********/
+input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+
+/******** Chrome, Safari, Opera and Edge Chromium styles ********/
+input[type="range"]::-webkit-slider-runnable-track {
+    background: var(--rainbow-gradient);
+    border-radius: 0.5rem;
+    height: 0.5rem;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    margin-top: -11px;
+    background-color: var(--ui-content);
+    border-radius: 0.5rem;
+    height: 30px;
+    width: 10px;
+}
+
+input[type="range"]:focus::-webkit-slider-thumb {
+    outline: none;
+}
+
+/*********** Firefox styles ***********/
+/* slider track */
+input[type="range"]::-moz-range-track {
+    background-color: var(--rainbow-gradient);
+    border-radius: 0.5rem;
+    height: 0.5rem;
+}
+
+/* slider thumb */
+input[type="range"]::-moz-range-thumb {
+    background-color: var(--ui-content);
+    border: none;
+    /*Removes extra border that FF applies*/
+    border-radius: 0.5rem;
+    height: 30px;
+    width: 10px;
 }
