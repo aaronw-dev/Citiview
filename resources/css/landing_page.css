@@ -13,7 +13,7 @@
     gap: 30px;
     overflow: hidden;
     background: var(--Background, #060606);
-    font-family: Sans-Serif;
+    font-family: Inter;
     margin: 0;
 }
   
@@ -123,11 +123,78 @@
 
   /**About Us **/
 .about_citiview{
+    padding-top: 20px;
+    padding-left: 90px;
+    padding-right: 90px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
     color: white;
 }  
 .about_citiview h1{
-    padding: 20px;
-    text-align: center; 
-   font-size: 40px;
-   margin: 0;
+     /**Typography**/
+    color: #00FFF2;
+    text-align: center;
+    font-size: 31.25px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 47.25px; 
+    text-transform: uppercase;
+}
+
+.about_citiview p{
+    width: 50%;
+    /**Typography**/
+    color: #F2F2F2;
+    text-align: center;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+}
+
+/**Features**/
+
+.features_container {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-left: 90px;
+    padding-right: 90px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    align-content: stretch;
+  }
+ 
+  .features_container h2{
+    margin:0;
+    color: #000;
+    font-size: 20px;
+    font-style: bold;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  .features_container p{
+    color: #FFF;
+    text-align: start;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px; 
+  }
+
+.features_container div{
+    border-radius: 30px;
+    background: rgba(0, 255, 242, 0.75);
+    width: 50%;
+    padding: 21px;
+    align-items: flex-start;
+    gap: 12px;
+    flex-shrink: 0;
 }
