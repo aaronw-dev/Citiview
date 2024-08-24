@@ -1,0 +1,133 @@
+.root{
+    background: var(--Background, #060606);
+    accent-1: var(--ui-accent, #00FFF2);
+}
+
+.body{
+    display: flex;
+    width: 1440px;
+    height: 3391px;
+    padding: 0px 90px;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    overflow: hidden;
+    background: var(--Background, #060606);
+    font-family: Sans-Serif;
+    margin: 0;
+}
+  
+/** MENU **/
+  .menu-container {
+    position: relative;
+    margin-bottom: 20px;
+    padding: 10px 90px 0px 90px;
+    z-index: 1;
+    display: flex;
+    max-height: 161px;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+    align-self: stretch;
+
+    -webkit-user-select: none;
+    user-select: none;
+    box-sizing: border-box;
+  }
+  
+  .menu-logo {
+    line-height: 0;
+    margin: 0 20px;
+  }
+  
+  .menu-logo img {
+    max-height: 40px;
+    max-width: 1000px;
+    flex-shrink: 0;
+  }
+  
+  .menu-container a {
+    text-decoration: none;
+    color: #232323;
+    transition: color 0.3s ease;
+  }
+  
+  .menu-container a:hover {
+    color: #00FFF2;
+  }
+  
+  .menu-container input {
+    display: block;
+    width: 35px;
+    height: 25px;
+    margin: 0;
+    position: absolute;
+    cursor: pointer;
+    opacity: 0; /* hide this */
+    z-index: 2; /* and place it over the hamburger */
+    -webkit-touch-callout: none;
+  }
+  
+  .menu ul {
+    list-style: none;
+  }
+  
+  .menu li {
+    padding: 10px 0;
+    font-size: 22px;
+  }
+  
+  
+  @media only screen and (min-width: 768px) { 
+    .menu-container {
+      width: 100%;
+    }
+  
+    .menu-container a {
+      color: #cdcdcd;
+    }
+  
+    .menu {
+      position: relative;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+    }
+  
+    .menu ul {
+      display: flex;
+      padding: 0;
+    }
+  
+    .menu li {
+      padding: 0 20px;
+    }
+  }
+
+  /**Hero**/
+  .hero_img{
+    width: 100%;
+    height: 700px;
+    background: url("/resources/img/hero_img.png");
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .hero_img h1, p{
+    text-align: center;
+    color: white;
+  }
+
+  /**About Us **/
+.about_citiview{
+    color: white;
+}  
+.about_citiview h1{
+    padding: 20px;
+    text-align: center; 
+   font-size: 40px;
+   margin: 0;
+}
