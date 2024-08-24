@@ -189,7 +189,7 @@
     line-height: 24px; 
   }
 
-.features_container div{
+.features_container section{
     border-radius: 30px;
     background: rgba(0, 255, 242, 0.75);
     width: 50%;
@@ -197,4 +197,26 @@
     align-items: flex-start;
     gap: 12px;
     flex-shrink: 0;
+}
+
+/**Features animations**/
+
+.hidden{
+    opacity: 0;
+    filter: blur(10px);
+    transition: all 1s ease;
+}
+.features_container:nth-child(1){
+    transition-delay: 10000000000000ms;
+}
+.show{
+    opacity: 1;
+    filter: blur(0px);
+    transform: translateX(0%);
+}
+
+@media(prefers-reduced-motion){
+    .hidden{
+        transition: none;    
+    }
 }
