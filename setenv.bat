@@ -1,0 +1,1 @@
+for /F "delims== tokens=1,* eol=#" %%i in (.env.local) do set %%i=%%~j
