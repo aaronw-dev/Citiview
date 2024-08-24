@@ -1,0 +1,50 @@
+[
+    {
+        "type": "text",
+        "required": true,
+        "label": "Name of Issue",
+        "placeholder": "Name of issue",
+        "className": "form-control",
+        "name": "text-1724517873665",
+        "access": false,
+        "subtype": "text",
+        "maxlength": 0
+    },
+    {
+        "type": "textarea",
+        "required": false,
+        "label": "Description of Issue",
+        "placeholder": "Describe the issue",
+        "className": "form-control",
+        "name": "textarea-1724517930329",
+        "access": false,
+        "subtype": "textarea",
+        "rows": 3
+    },
+    {
+        "type": "date",
+        "required": false,
+        "label": "Date Field",
+        "className": "form-control",
+        "name": "date-1724517993307",
+        "access": false
+    },
+    {
+        "type": "file",
+        "required": false,
+        "label": "File Upload",
+        "className": "form-control",
+        "name": "file-1724518017738",
+        "access": false,
+        "subtype": "file",
+        "multiple": true
+    },
+    {
+        "type": "number",
+        "required": false,
+        "label": "Number",
+        "className": "form-control",
+        "name": "number-1724518049943",
+        "access": false
+    }
+]
