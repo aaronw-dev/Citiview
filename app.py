@@ -59,7 +59,10 @@ def data():
         data.append({
             "type": "Feature",
             "properties": {
-                "priority": float(place_dict["priority"])
+                "priority": float(place_dict["priority"]),
+                "title": place_dict["name"],
+                "description": place_dict["description"],
+                "datetime": datetime.strftime(place_dict["datetime"], "%I:%M %p on %d/%m/%Y")
             },
             "geometry": {
                 "type": "Point",

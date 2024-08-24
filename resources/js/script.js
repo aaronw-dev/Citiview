@@ -51,7 +51,14 @@ async function init() {
     const addAccept = document.querySelector("#add-accept")
     const addCancel = document.querySelector("#add-cancel")
 
+    const popupDialog = document.querySelector("#popup-dialog")
+    const popupTitle = document.querySelector("#popup-title")
+    const popupDescription = document.querySelector("#popup-description")
+    const popupPriority = document.querySelector("#popup-priority")
+    const popupDateTime = document.querySelector("#popup-time")
+
     var isAddDialogOpen = false;
+    var isPopupOpen = false;
 
     searchInput.addEventListener("focus", e => {
         searchContainer.style.borderRadius = "20px 20px 0px 0px"
@@ -125,7 +132,6 @@ async function init() {
     searchInput.addEventListener('keydown', function () {
         clearTimeout(typingTimer);
     });
-
     function addMarkerAtPos(coords, color) {
         let el = document.createElement('div');
         let height = 10;
@@ -146,10 +152,13 @@ async function init() {
     let eventData = await fetchEvents()
     console.log(eventData)
     var addEventMarker;
+    var selectedMarker;
     function hideAddDialog() {
         addDialog.style.display = "none"
-        addEventMarker.remove();
-        addEventMarker = null
+        if (addEventMarker) {
+            addEventMarker.remove();
+            addEventMarker = null
+        }
         map.setMinZoom(0)
         map.stop()
     }
@@ -181,6 +190,16 @@ async function init() {
         addMarkerAtPos(addEventMarker.getLngLat(), "white");
         hideAddDialog();
     };
+    addCancel.onclick = function (e) {
+        hideAddDialog();
+    };
+    function openPopup(title, description, priority, datetime) {
+        popupDialog.style.display = "flex"
+        popupTitle.innerHTML = title
+        popupDescription.innerHTML = description
+        popupPriority.value = priority
+        popupDateTime.innerHTML = datetime
+    }
     map.on('load', () => {
         map.addSource('events', {
             type: "geojson",
@@ -247,12 +266,23 @@ async function init() {
             'waterway-label'
         );
         eventData.features.forEach(feature => {
-            addMarkerAtPos(feature.geometry.coordinates, "white")
+            let marker = addMarkerAtPos(feature.geometry.coordinates, "white")
+            console.log(feature)
+            marker._element.addEventListener("click", (e) => {
+                selectedMarker = marker
+                openPopup(feature.properties.title, feature.properties.description, feature.properties.priority, feature.properties.datetime)
+                let markerPosition = map.project(selectedMarker.getLngLat())
+                popupDialog.style.left = markerPosition.x + "px"
+                popupDialog.style.top = markerPosition.y + "px"
+                setTimeout(() => {
+                    isPopupOpen = true
+                }, 10);
+            })
         });
     })
     map.on('click', (e) => {
         isAddDialogOpen = !isAddDialogOpen;
-        if (isAddDialogOpen) { // when the dialog is shown on screen
+        if (isAddDialogOpen && !selectedMarker) { // when the dialog is shown on screen
             if (addEventMarker == undefined) {
                 addEventMarker = addMarkerAtPos(e.lngLat, "#3898ff")
             } else {
@@ -270,6 +300,11 @@ async function init() {
         } else { // when the dialog is hidden
             hideAddDialog()
         }
+        if (selectedMarker && isPopupOpen) {
+            selectedMarker = null
+            isPopupOpen = false
+            popupDialog.style.display = "none"
+        }
     });
 
     map.on('move', () => {
@@ -277,6 +312,12 @@ async function init() {
             let eventMarkerPosition = map.project(addEventMarker.getLngLat())
             addDialog.style.left = eventMarkerPosition.x + "px"
             addDialog.style.top = eventMarkerPosition.y + "px"
+        }
+        console.log(selectedMarker);
+        if (selectedMarker) {
+            let markerPosition = map.project(selectedMarker.getLngLat())
+            popupDialog.style.left = markerPosition.x + "px"
+            popupDialog.style.top = markerPosition.y + "px"
         }
     });
 }
