@@ -139,7 +139,7 @@ async function init() {
                 "features": [{
                     "type": "Feature",
                     "properties": {
-                        "priority": "1.0"
+                        "priority": 1.0
                     },
                     "geometry": {
                         "type": "Point",
@@ -148,7 +148,7 @@ async function init() {
                 }, {
                     "type": "Feature",
                     "properties": {
-                        "priority": "1.0"
+                        "priority": 0.1
                     },
                     "geometry": {
                         "type": "Point",
@@ -157,7 +157,7 @@ async function init() {
                 }, {
                     "type": "Feature",
                     "properties": {
-                        "priority": "1.0"
+                        "priority": 0.5
                     },
                     "geometry": {
                         "type": "Point",
@@ -166,11 +166,20 @@ async function init() {
                 }, {
                     "type": "Feature",
                     "properties": {
-                        "priority": "1.0"
+                        "priority": 0.1
                     },
                     "geometry": {
                         "type": "Point",
                         "coordinates": [-123.06967127697557, 49.222208290394775]
+                    }
+                }, {
+                    "type": "Feature",
+                    "properties": {
+                        "priority": 0.1
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [-123.07112372365116, 49.22312442672665]
                     }
                 }]
             }
@@ -188,8 +197,8 @@ async function init() {
                         ['linear'],
                         ['get', 'priority'],
                         0,
+                        0,
                         1,
-                        6,
                         1
                     ],
                     // Increase the heatmap color weight weight by zoom level
@@ -211,17 +220,17 @@ async function init() {
                         ['linear'],
                         ['heatmap-density'],
                         0,
-                        'rgba(0,0,255,0)',   // Transparent blue for low density
+                        'rgba(0, 0, 255, 0)',   // Transparent blue for low density
                         0.2,
-                        'rgba(0,0,255,0.2)', // Light blue for low density
+                        'rgba(0, 0, 255, 0.2)', // Light blue for low density
                         0.4,
-                        'rgb(173,216,230)',  // Light cyan for medium-low density
+                        'rgba(34, 45, 255, 1)',  // Light cyan for medium-low density
                         0.6,
-                        'rgb(144,238,144)',  // Light green for medium density
+                        'rgba(79, 250, 79, 1)',  // Light green for medium density
                         0.8,
-                        'rgb(255,255,178)',  // Light yellow for medium-high density
+                        'rgba(255, 255, 67, 1)',  // Light yellow for medium-high density
                         1,
-                        'rgb(255,102,102)'   // Light red for high density
+                        'rgba(255, 27, 27, 1)'   // Light red for high density
                     ]
                     ,
                     // Adjust the heatmap radius by zoom level
@@ -229,10 +238,10 @@ async function init() {
                         'interpolate',
                         ['linear'],
                         ['zoom'],
+                        1,
                         0,
-                        20,
-                        9,
-                        20
+                        13,
+                        40
                     ]
                 }
             },
