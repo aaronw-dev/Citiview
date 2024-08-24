@@ -20,105 +20,168 @@
 }
   
 /** NavBar **/
-  @media only screen and (max-width: 768px) {
-    .menu-container {
-      text-decoration:none;
-      color: white;
-      padding: 10px;
-      flex-direction: column;
-      align-items: flex-start;
-      max-height: unset;
-    }
-    .menu {
-      display: none;
-    }
-    .menu-container:hover .menu,
-    .menu-container:focus-within .menu {
-      display: block;
-    }
-    .menu-container:before {
-      content: "";
-      display: block;
-      position: absolute;
-      top: 15px;
-      right: 15px;
-      width: 30px;
-      height: 30px;
-      background: url(/resources/icons/menu.svg) no-repeat center center;
-      background-size: 30px 30px;
-      cursor: pointer;
-    }
+.menu-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: #060606;
+  color: #060606;
+  padding: 20px 90px 0 90px;
+  z-index: 1;
+  -webkit-user-select: none;
+  user-select: none;
+  box-sizing: border-box;
+}
+
+.menu-logo {
+  line-height: 0;
+  margin: 0 20px;
+}
+
+.menu-logo img {
+  opacity : 1;
+  max-height: 100px;
+  max-width: 100px;
+  flex-shrink: 0;
+}
+
+.menu-container a {
+  text-decoration: none;
+  color: #ffffff;
+  transition: color 0.3s ease;
+}
+
+.menu-container a:hover {
+  color: #00fff2;
+}
+
+.menu-container input {
+  display: block;
+  width: 100px;
+  height: 50px;
+  margin: 0;
+  position: absolute;
+  cursor: pointer;
+  opacity: 0; /* hide this */
+  z-index: 2; /* and place it over the hamburger */
+  -webkit-touch-callout: none;
+}
+
+/* Burger menu */
+.menu-container span {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  margin-bottom: 5px;
+  position: relative;
+  border-radius: 3px;
+  background-image: url("/resources/img/logo/logo-1000.png");
+  z-index: 1;
+}
+
+
+.menu-container input:checked ~ span {
+  opacity: 1;
+  background-image: url("/resources/img/logo/logo-1000.png");
+}
+
+.menu ul {
+  list-style: none;
+}
+
+.menu li {
+  padding: 10px 0;
+  font-size: 22px;
+}
+
+/* mobile styles */
+@media only screen and (max-width: 767px) { 
+  iframe{
+    padding-bottom: 50px;
+    width: auto;
+    height: auto;
   }
+  footer{
+    width: auto;
+    height: auto;
+  }
+
   .menu-container {
-    background: var(--Background, #060606);
-    position: relative;
-    padding: 10px 90px 0px 90px;
-    z-index: 1;
-    display: flex;
-    max-height: 161px;
-    justify-content: space-between;
-    align-items: center;
-    flex-shrink: 0;
-    align-self: stretch;
-    box-sizing: border-box;
+    margin-left: -50px;
+    flex-direction: row;
+    align-items: flex-start;
   }
   
   .menu-logo {
-    line-height: 0;
-    margin: 0 20px;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
   }
-  
+
   .menu-logo img {
-    max-height: 40px;
-    max-width: 1000px;
-    flex-shrink: 0;
+    opacity : 0;
   }
+
+  .menu {
+    position: absolute;
+    box-sizing: border-box;
+    width: 300px;
+    left: -300px;
+    top: 0;
+    margin: -20px;
+    padding: 85px 80px 50px;
+    background: var(--Background, #060606);
+    -webkit-font-smoothing: antialiased;
+    /* to stop flickering of text in safari */
+    transform-origin: 0% 0%;
+    transform: translateX(0%);
+    transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+  }
+
+  .menu-container input:checked ~ .menu {
+    transform: translateX(100%);
+  }
+
   
+}
+
+/* desktop styles */
+@media only screen and (min-width: 768px) { 
+  .menu-container {
+    width: 100%;
+  }
+
   .menu-container a {
-    text-decoration: none;
-    color: #232323;
-    transition: color 0.3s ease;
+    color: #f8f8f8;
   }
-  
-  .menu-container a:hover {
-    color: #00FFF2;
+
+  .menu-container input {
+    display: none;
   }
-    
+
+  /* Burger menu */
+  .menu-container span {
+    display: none;
+  }
+
+  .menu {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+
   .menu ul {
-    list-style: none;
+    display: flex;
+    padding: 0;
   }
-  
+
   .menu li {
-    padding: 10px 0;
-    font-size: 22px;
+    padding: 0 20px;
   }
-  
-  
-  @media only screen and (min-width: 768px) { 
-    .menu-container {
-      width: 100%;
-    }
-  
-    .menu-container a {
-      color: #cdcdcd;
-    }
-  
-    .menu {
-      position: relative;
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-    }
-  
-    .menu ul {
-      display: flex;
-      padding: 0;
-    }
-  
-    .menu li {
-      padding: 0 20px;
-    }
-  }
+}
 
   /**Hero**/
   .hero{
@@ -293,4 +356,12 @@
     font-weight: 700;
     line-height: 47.25px; 
     text-transform: uppercase;
+}
+
+footer {  
+    padding-top: 90px;
+    display: flex;  
+    justify-content: center;
+    align-items: center;
+    text-align: center;  
 }
