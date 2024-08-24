@@ -340,6 +340,7 @@ body {
 
 .features_container>img {
   height: 350px;
+  border-radius: 30px;
 }
 
 /**Features animations**/
