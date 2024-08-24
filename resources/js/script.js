@@ -9,16 +9,15 @@ window.addEventListener("load", (event) => {
 });
 async function fetchGeocode(query) {
     const url = `https://api.locationiq.com/v1/autocomplete?key=pk.ecebeee654b3975a6a6fe684cfd4c686&q=${encodeURIComponent(query)}&limit=5&countrycodes=ca,us`;
-    try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        return data;
-    } catch (error) {
-        console.error('Error fetching geocode data:', error);
-    }
+    const response = await fetch(url);
+    const data = await response.json();
+    return data;
+}
+async function fetchEvents() {
+    const url = `/data`;
+    const response = await fetch(url);
+    const data = await response.json();
+    return data;
 }
 function calculateZoomLevel(boundingBox, mapWidth, mapHeight) {
     const WORLD_DIM = { width: 256, height: 256 };
@@ -43,6 +42,16 @@ async function init() {
     const resultsContainer = document.querySelector(".results")
     const searchContainer = document.querySelector(".searchbar")
     const searchInput = document.querySelector("#search")
+
+    const addDialog = document.querySelector("#add-dialog")
+    const addTitle = document.querySelector("#add-title")
+    const addDescription = document.querySelector("#add-description")
+    const addPriority = document.querySelector("#add-priority")
+
+    const addAccept = document.querySelector("#add-accept")
+    const addCancel = document.querySelector("#add-cancel")
+
+    var isAddDialogOpen = false;
 
     searchInput.addEventListener("focus", e => {
         searchContainer.style.borderRadius = "20px 20px 0px 0px"
@@ -117,7 +126,7 @@ async function init() {
         clearTimeout(typingTimer);
     });
 
-    async function addMarkerAtPos(coords, color) {
+    function addMarkerAtPos(coords, color) {
         let el = document.createElement('div');
         let height = 10;
         let width = height;
@@ -130,59 +139,52 @@ async function init() {
         userMarker = new mapboxgl.Marker({ element: el, anchor: "center" })
             .setLngLat(coords)
             .addTo(map);
+        return userMarker
     }
+
+
+    let eventData = await fetchEvents()
+    console.log(eventData)
+    var addEventMarker;
+    function hideAddDialog() {
+        addDialog.style.display = "none"
+        addEventMarker.remove();
+        addEventMarker = null
+        map.setMinZoom(0)
+        map.stop()
+    }
+    async function submitEvent() {
+        let markerPosition = addEventMarker.getLngLat()
+        const response = await fetch('/submit', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                "description": addDescription.value,
+                "title": addTitle.value,
+                "position": [markerPosition.lng, markerPosition.lat],
+                "priority": addPriority.value
+            })
+        });
+
+        if (response.ok) {
+            console.log("Item was submitted successfully.");
+            eventData = await fetchEvents()
+            map.getSource('events').setData(eventData);
+        } else {
+            console.error("Failed to submit the item.");
+        }
+    }
+    addAccept.onclick = function (e) {
+        submitEvent();
+        addMarkerAtPos(addEventMarker.getLngLat(), "white");
+        hideAddDialog();
+    };
     map.on('load', () => {
         map.addSource('events', {
-            type: 'geojson',
-            data: {
-                "type": "FeatureCollection",
-                "features": [{
-                    "type": "Feature",
-                    "properties": {
-                        "priority": 1.0
-                    },
-                    "geometry": {
-                        "type": "Point",
-                        "coordinates": [-123.17056967686463, 49.269096655191305]
-                    }
-                }, {
-                    "type": "Feature",
-                    "properties": {
-                        "priority": 0.1
-                    },
-                    "geometry": {
-                        "type": "Point",
-                        "coordinates": [-123.07063662594405, 49.220854397413696]
-                    }
-                }, {
-                    "type": "Feature",
-                    "properties": {
-                        "priority": 0.5
-                    },
-                    "geometry": {
-                        "type": "Point",
-                        "coordinates": [-123.183728, 49.196103]
-                    }
-                }, {
-                    "type": "Feature",
-                    "properties": {
-                        "priority": 0.1
-                    },
-                    "geometry": {
-                        "type": "Point",
-                        "coordinates": [-123.06967127697557, 49.222208290394775]
-                    }
-                }, {
-                    "type": "Feature",
-                    "properties": {
-                        "priority": 0.1
-                    },
-                    "geometry": {
-                        "type": "Point",
-                        "coordinates": [-123.07112372365116, 49.22312442672665]
-                    }
-                }]
-            }
+            type: "geojson",
+            data: eventData
         });
         map.addLayer(
             {
@@ -201,7 +203,6 @@ async function init() {
                         1,
                         1
                     ],
-                    // Increase the heatmap color weight weight by zoom level
                     // heatmap-intensity is a multiplier on top of heatmap-weight
                     'heatmap-intensity': [
                         'interpolate',
@@ -213,24 +214,22 @@ async function init() {
                         3
                     ],
                     // Color ramp for heatmap.  Domain is 0 (low) to 1 (high).
-                    // Begin color ramp at 0-stop with a 0-transparancy color
-                    // to create a blur-like effect.
                     'heatmap-color': [
                         'interpolate',
                         ['linear'],
                         ['heatmap-density'],
                         0,
-                        'rgba(0, 0, 255, 0)',   // Transparent blue for low density
+                        'rgba(0, 0, 255, 0)',
                         0.2,
-                        'rgba(0, 0, 255, 0.2)', // Light blue for low density
+                        'rgba(0, 0, 255, 0.2)',
                         0.4,
-                        'rgba(34, 45, 255, 1)',  // Light cyan for medium-low density
+                        'rgba(34, 45, 255, 1)',
                         0.6,
-                        'rgba(79, 250, 79, 1)',  // Light green for medium density
+                        'rgba(79, 250, 79, 1)',
                         0.8,
-                        'rgba(255, 255, 67, 1)',  // Light yellow for medium-high density
+                        'rgba(255, 255, 67, 1)',
                         1,
-                        'rgba(255, 27, 27, 1)'   // Light red for high density
+                        'rgba(255, 27, 27, 1)'
                     ]
                     ,
                     // Adjust the heatmap radius by zoom level
@@ -247,8 +246,40 @@ async function init() {
             },
             'waterway-label'
         );
-        addMarkerAtPos([-123.183728, 49.196103], "blue")
-        addMarkerAtPos([-123.17056967686463, 49.269096655191305], "green")
-        addMarkerAtPos([-123.07063662594405, 49.220854397413696], "purple")
+        eventData.features.forEach(feature => {
+            addMarkerAtPos(feature.geometry.coordinates, "white")
+        });
     })
+    map.on('click', (e) => {
+        isAddDialogOpen = !isAddDialogOpen;
+        if (isAddDialogOpen) { // when the dialog is shown on screen
+            if (addEventMarker == undefined) {
+                addEventMarker = addMarkerAtPos(e.lngLat, "#3898ff")
+            } else {
+                addEventMarker.setLngLat(e.lngLat)
+            }
+            addDialog.style.display = "flex"
+            let eventMarkerPosition = map.project(addEventMarker.getLngLat())
+            addDialog.style.left = eventMarkerPosition.x + "px"
+            addDialog.style.top = eventMarkerPosition.y + "px"
+            map.flyTo({
+                center: e.lngLat,
+                zoom: 18,
+                duration: 2000,
+            })
+            setTimeout(() => {
+                map.setMinZoom(14)
+            }, 2000);
+        } else { // when the dialog is hidden
+            hideAddDialog()
+        }
+    });
+
+    map.on('move', () => {
+        if (addEventMarker) {
+            let eventMarkerPosition = map.project(addEventMarker.getLngLat())
+            addDialog.style.left = eventMarkerPosition.x + "px"
+            addDialog.style.top = eventMarkerPosition.y + "px"
+        }
+    });
 }
