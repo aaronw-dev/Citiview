@@ -14,18 +14,43 @@
             display: none !important;
         }
     </style>
+    <script src="/resources/js/script.js"></script>
 </head>
 
 <body>
     <div id='map' style='width: 100vw; height: 100vh;'></div>
     <div class="searchbar">
-        <input id="search" type="text" placeholder="Find a place" value="">
-        <img id="search-icon" src="/resources/icons/search.svg">
+        <input id="search" type="text" placeholder="Find a place" value="" autocomplete="off">
+        <img id="search-icon" src="/resources/icons/search-inactive.svg">
+        <ul class="results">
+            <li>
+                <img src="/resources/icons/pin.svg">
+                <span>item 1</span>
+            </li>
+            <li>
+                <img src="/resources/icons/pin.svg">
+                <span>item 2</span>
+            </li>
+            <li>
+                <img src="/resources/icons/pin.svg">
+                <span>item 3</span>
+            </li>
+            <li>
+                <img src="/resources/icons/pin.svg">
+                <span>item 4</span>
+            </li>
+            <li>
+                <img src="/resources/icons/pin.svg">
+                <span>item 5</span>
+            </li>
+        </ul>
     </div>
     <div class="profile">
         <img src="https://awdev.codes/images/logo/logo-filled-black.png">
     </div>
-    <script src="/resources/js/script.js"></script>
+    <button id="add-button">
+        <img src="/resources/icons/add.svg">
+    </button>
 </body>
 
 </html>
