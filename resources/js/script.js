@@ -265,11 +265,8 @@ async function init() {
             map.flyTo({
                 center: e.lngLat,
                 zoom: 18,
-                duration: 2000,
+                duration: 1000,
             })
-            setTimeout(() => {
-                map.setMinZoom(14)
-            }, 2000);
         } else { // when the dialog is hidden
             hideAddDialog()
         }

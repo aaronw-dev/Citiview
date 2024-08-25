@@ -38,6 +38,12 @@ def nocache(view):
 @nocache
 @app.route('/')
 def home():
+    return render_template("landing_page.html")
+
+
+@nocache
+@app.route('/app')
+def render_app():
     return render_template("index.html")
 
 
