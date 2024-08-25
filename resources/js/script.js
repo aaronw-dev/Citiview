@@ -150,7 +150,6 @@ async function init() {
 
 
     let eventData = await fetchEvents()
-    console.log(eventData)
     var addEventMarker;
     var selectedMarker;
     function hideAddDialog() {
@@ -159,6 +158,7 @@ async function init() {
             addEventMarker.remove();
             addEventMarker = null
         }
+        isAddDialogOpen = false;
         map.setMinZoom(0)
         map.stop()
     }
@@ -176,7 +176,9 @@ async function init() {
                 "priority": addPriority.value
             })
         });
-
+        addDescription.value = ""
+        addTitle.value = ""
+        addPriority.value = 0.5
         if (response.ok) {
             console.log("Item was submitted successfully.");
             eventData = await fetchEvents()
@@ -186,8 +188,8 @@ async function init() {
         }
     }
     addAccept.onclick = function (e) {
+        let marker = addMarkerAtPos(addEventMarker.getLngLat(), "#68e88a");
         submitEvent();
-        addMarkerAtPos(addEventMarker.getLngLat(), "white");
         hideAddDialog();
     };
     addCancel.onclick = function (e) {
@@ -267,7 +269,6 @@ async function init() {
         );
         eventData.features.forEach(feature => {
             let marker = addMarkerAtPos(feature.geometry.coordinates, "white")
-            console.log(feature)
             marker._element.addEventListener("click", (e) => {
                 selectedMarker = marker
                 openPopup(feature.properties.title, feature.properties.description, feature.properties.priority, feature.properties.datetime)

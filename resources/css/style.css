@@ -261,3 +261,17 @@ input[type="range"]::-moz-range-thumb {
     font-size: 16px;
     height: 6em;
 }
+
+
+@media only screen and (max-width: 600px) {
+
+    .popup-dialog,
+    .add-dialog {
+        transform: translate(-50%, -110%);
+        width: 60vw;
+    }
+
+    .add-top input {
+        width: 100%;
+    }
+}

@@ -62,7 +62,7 @@ def data():
                 "priority": float(place_dict["priority"]),
                 "title": place_dict["name"],
                 "description": place_dict["description"],
-                "datetime": datetime.strftime(place_dict["datetime"], "%I:%M %p on %d/%m/%Y")
+                "datetime": datetime.strftime(place_dict["datetime"], "%I:%M %p on %d/%m/%Y (UTC)")
             },
             "geometry": {
                 "type": "Point",
